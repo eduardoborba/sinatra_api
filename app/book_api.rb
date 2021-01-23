@@ -69,6 +69,7 @@ class BookApi < Sinatra::Base
       BookSerializer.new(book).to_json
     end
   end
+
   get '/books' do
     books = Book.all
 
