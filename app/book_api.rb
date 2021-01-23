@@ -2,10 +2,6 @@ require 'sinatra'
 require 'mongoid'
 require 'sinatra/namespace'
 
-# DB Setup
-Mongoid.load! 'mongoid.config'
-
-# Models
 class Book
   include Mongoid::Document
 
@@ -43,12 +39,7 @@ class BookSerializer
   end
 end
 
-# Endpoints
-get '/' do
-  'Welcome to BookList!'
-end
-
-namespace '/api/v1' do
+class BookApi < Sinatra::Base
   before do
     content_type 'application/json'
   end
@@ -78,7 +69,6 @@ namespace '/api/v1' do
       BookSerializer.new(book).to_json
     end
   end
-
   get '/books' do
     books = Book.all
 
